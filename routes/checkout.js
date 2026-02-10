@@ -6,8 +6,11 @@ const router = express.Router();
 
 // Checkout endpoint
 router.post('/', authenticateToken, async (req, res) => {
-  try {
-    // Get the user's cart
+  
+    try {
+  console.log('User ID from token:', req.user.id);
+
+        // Get the user's cart
     const cartResult = await pool.query(
       `SELECT c.product_id, c.quantity, p.price
        FROM carts c
@@ -17,6 +20,9 @@ router.post('/', authenticateToken, async (req, res) => {
     );
 
     const cartItems = cartResult.rows;
+    console.log('Cart items found:', cartItems.length); // <-- debug cart count
+    console.log('Cart items:', cartItems); // <-- debug full cart content
+
     if (cartItems.length === 0) {
       return res.status(400).json({ error: 'Cart is empty' });
     }
