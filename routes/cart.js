@@ -1,3 +1,39 @@
+/**
+ * @swagger
+ * tags:
+ *   name: Cart
+ *   description: Cart management
+ */
+
+/**
+ * @swagger
+ * /cart:
+ *   get:
+ *     summary: Get the current user's cart
+ *     tags: [Cart]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: The user's cart
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   name:
+ *                     type: string
+ *                   price:
+ *                     type: number
+ *                   quantity:
+ *                     type: integer
+ */
+
+
 const express = require("express");
 const pool = require("../db");
 const authenticateToken = require("../middleware/authMiddleware");

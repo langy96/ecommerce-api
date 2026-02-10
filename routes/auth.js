@@ -1,3 +1,39 @@
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Authentication management
+ */
+
+/**
+ * @swagger
+ * /auth:
+ *   get:
+ *     summary: Get the current user's info
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: The user's info
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   name:
+ *                     type: string
+ *                   price:
+ *                     type: number
+ *                   quantity:
+ *                     type: integer
+ */
+
+
 // routes/auth.js
 const express = require('express');
 const bcrypt = require('bcrypt');

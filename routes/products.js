@@ -1,3 +1,37 @@
+/**
+ * @swagger
+ * tags:
+ *   name: Products
+ *   description: Product management
+ */
+
+/**
+ * @swagger
+ * /products:
+ *   get:
+ *     summary: Get all products
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: The list of products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   name:
+ *                     type: string
+ *                   price:
+ *                     type: number
+ *                   quantity:
+ *                     type: integer
+ */
+
+
 // routes/products.js
 const express = require('express');
 const pool = require('../db');

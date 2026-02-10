@@ -1,3 +1,39 @@
+/**
+ * @swagger
+ * tags:
+ *   name: Orders
+ *   description: Order management
+ */
+
+/**
+ * @swagger
+ * /orders:
+ *   get:
+ *     summary: Get all orders for the current user
+ *     tags: [Orders]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: The user's orders
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   name:
+ *                     type: string
+ *                   price:
+ *                     type: number
+ *                   quantity:
+ *                     type: integer
+ */
+
+
 const express = require('express');
 const pool = require('../db');
 const authenticateToken = require('../middleware/authMiddleware');
