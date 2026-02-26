@@ -9,7 +9,7 @@ router.get('/me', authMiddleware, async (req, res) => {
   try {
     const result = await pool.query(
       'SELECT id, email FROM users WHERE id = $1',
-      [req.user.userId]
+      [req.user.id]
     );
 
     res.json(result.rows[0]);

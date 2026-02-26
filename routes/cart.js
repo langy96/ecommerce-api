@@ -45,12 +45,13 @@ router.get("/", authenticateToken, async (req, res) => {
   try {
     const result = await pool.query(
       `
-      SELECT c.id, p.name, p.price, c.quantity
+      SELECT ci.id, p.name, p.price, ci.quantity
       FROM carts c
-      JOIN products p ON c.product_id = p.id
+      JOIN cart_items ci ON c.id = ci.cart_id
+      JOIN products p ON ci.product_id = p.id
       WHERE c.user_id = $1
       `,
-      [req.user.userId]
+      [req.user.id]
     );
 
     res.json(result.rows);
@@ -65,13 +66,28 @@ router.post("/", authenticateToken, async (req, res) => {
   try {
     const { product_id, quantity } = req.body;
 
+    // First, ensure the user has a cart
+    const cartResult = await pool.query(
+      'SELECT id FROM carts WHERE user_id = $1',
+      [req.user.id]
+    );
+    let cartId = cartResult.rows[0]?.id;
+    
+    if (!cartId) {
+      const newCart = await pool.query(
+        'INSERT INTO carts (user_id) VALUES ($1) RETURNING id',
+        [req.user.id]
+      );
+      cartId = newCart.rows[0].id;
+    }
+
     const result = await pool.query(
       `
-      INSERT INTO carts (user_id, product_id, quantity)
+      INSERT INTO cart_items (cart_id, product_id, quantity)
       VALUES ($1, $2, $3)
       RETURNING *
       `,
-      [req.user.userId, product_id, quantity]
+      [cartId, product_id, quantity]
     );
 
     res.status(201).json(result.rows[0]);
@@ -85,8 +101,10 @@ router.post("/", authenticateToken, async (req, res) => {
 router.delete("/:id", authenticateToken, async (req, res) => {
   try {
     await pool.query(
-      "DELETE FROM carts WHERE id = $1 AND user_id = $2",
-      [req.params.id, req.user.userId]
+      `DELETE FROM cart_items ci
+       USING carts c
+       WHERE ci.id = $1 AND c.id = ci.cart_id AND c.user_id = $2`,
+      [req.params.id, req.user.id]
     );
 
     res.json({ message: "Item removed from cart" });

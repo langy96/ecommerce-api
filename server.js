@@ -7,12 +7,12 @@ dotenv.config();
 const authRouter = require('./routes/auth');
 const productsRouter = require('./routes/products');
 const cartRouter = require('./routes/cart');
-const ordersRouter = require('./routes/orders'); // <-- your orders router
+const ordersRouter = require('./routes/orders'); // <-- orders router
 const checkoutRouter = require('./routes/checkout');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-// Initialize app
+// Initialise app
 const app = express();
 
 // Middleware
@@ -47,6 +47,11 @@ const swaggerOptions = {
 
 const swaggerSpecs = swaggerJsdoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'E-commerce API running', docs: 'Visit http://localhost:3000/api-docs' });
+});
 
 // Routes
 app.use('/auth', authRouter);
