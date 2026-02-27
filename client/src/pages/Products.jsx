@@ -41,7 +41,7 @@ export const Products = () => {
               <h3>{product.name}</h3>
               <p className="description">{product.description}</p>
               <div className="product-footer">
-                <span className="price">${parseFloat(product.price).toFixed(2)}</span>
+                <span className="price">£{parseFloat(product.price).toFixed(2)}</span>
                 <Link to={`/product/${product.id}`} className="btn-view">
                   View Details
                 </Link>

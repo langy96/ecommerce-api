@@ -229,14 +229,14 @@ export const Checkout = () => {
                   {item.name} x{item.quantity}
                 </span>
                 <span className="item-price">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  £{(item.price * item.quantity).toFixed(2)}
                 </span>
               </div>
             ))}
           </div>
           <div className="summary-total">
             <span>Total:</span>
-            <span className="total-amount">${getTotalPrice()}</span>
+            <span className="total-amount">£{getTotalPrice()}</span>
           </div>
         </div>
       </div>

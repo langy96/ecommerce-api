@@ -37,9 +37,9 @@ export const Cart = () => {
                 {cart.map((item) => (
                   <tr key={item.id}>
                     <td>{item.name}</td>
-                    <td>${parseFloat(item.price).toFixed(2)}</td>
+                    <td>£{parseFloat(item.price).toFixed(2)}</td>
                     <td>{item.quantity}</td>
-                    <td>${(item.price * item.quantity).toFixed(2)}</td>
+                    <td>£{(item.price * item.quantity).toFixed(2)}</td>
                     <td>
                       <button
                         onClick={() => removeFromCart(item.id)}
@@ -58,7 +58,7 @@ export const Cart = () => {
             <h3>Order Summary</h3>
             <div className="summary-row">
               <span>Subtotal:</span>
-              <span>${getTotalPrice()}</span>
+              <span>£{getTotalPrice()}</span>
             </div>
             <div className="summary-row">
               <span>Shipping:</span>
@@ -66,7 +66,7 @@ export const Cart = () => {
             </div>
             <div className="summary-total">
               <span>Total:</span>
-              <span>${getTotalPrice()}</span>
+              <span>£{getTotalPrice()}</span>
             </div>
             <button
               onClick={() => navigate('/checkout')}

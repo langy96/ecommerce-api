@@ -79,9 +79,9 @@ export const Orders = () => {
                       {order.items.map((item) => (
                         <tr key={item.id}>
                           <td>{item.product_id}</td>
-                          <td>${parseFloat(item.price).toFixed(2)}</td>
+                          <td>£{parseFloat(item.price).toFixed(2)}</td>
                           <td>{item.quantity}</td>
-                          <td>${(item.price * item.quantity).toFixed(2)}</td>
+                          <td>£{(item.price * item.quantity).toFixed(2)}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -91,7 +91,7 @@ export const Orders = () => {
                 )}
               </div>
               <div className="order-total">
-                <strong>Total: ${order.total || '0.00'}</strong>
+                <strong>Total: £{order.total || '0.00'}</strong>
               </div>
             </div>
           ))}

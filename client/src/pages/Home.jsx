@@ -9,7 +9,7 @@ export const Home = () => {
         <div className="hero-content">
           <h1>Welcome to Our E-Commerce Store</h1>
           <p>Discover amazing products and shop with ease</p>
-          <Link to="/" className="btn-shop-now">
+          <Link to="/products" className="btn-shop-now">
             Start Shopping
           </Link>
         </div>

@@ -66,7 +66,7 @@ export const ProductDetails = () => {
           <p className="description">{product.description}</p>
           
           <div className="product-pricing">
-            <span className="price">${parseFloat(product.price).toFixed(2)}</span>
+            <span className="price">£{parseFloat(product.price).toFixed(2)}</span>
             <span className="stock">
               {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
             </span>
