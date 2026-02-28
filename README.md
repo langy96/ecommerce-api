@@ -1,59 +1,97 @@
-# E-commerce API (Codecademy Part One)
+# E-commerce API
 
-Minimal Express + PostgreSQL API for the Codecademy project.
+This is a simple backend server built with Express and PostgreSQL. It was made for a Codecademy project, but anyone can use it to learn how an online shop API works.
 
-Prerequisites
-- Node.js 18+ and npm
-- PostgreSQL running locally (port 5432)
+## What you need
 
-Setup
+- **Node.js** (version 18 or newer) and **npm**
+- **PostgreSQL** running on your computer (default port 5432)
 
-1. Install dependencies
+## Getting started
 
-```bash
-npm install
-```
+1. **Install the code dependencies**
 
-2. Copy or create a `.env` file in the project root with:
+   ```bash
+   npm install
+   ```
 
-```
-DATABASE_URL=postgres://<user>:<password>@localhost:5432/<dbname>
-PORT=3000
-JWT_SECRET=your_jwt_secret
-```
+2. **Create a `.env` file** in the project root. The file should look like this:
 
-3. Create database tables
+   ```env
+   DATABASE_URL=postgres://<user>:<password>@localhost:5432/<dbname>
+   PORT=3000
+   JWT_SECRET=your_jwt_secret
+   ```
 
-```bash
-npm run create-db
-```
+   Replace `<user>`, `<password>`, and `<dbname>` with your database details, and choose a secret string for `JWT_SECRET`.
 
-4. Start the server (development mode)
+3. **Create the database tables**
 
-```bash
-npm run dev
-```
+   ```bash
+   npm run create-db
+   ```
 
-Endpoints
-- `GET /` — health/info
-- `GET /api-docs` — Swagger UI
-- Auth: `POST /auth/register`, `POST /auth/login` (returns `token`)
-- Products: `GET /products` (other CRUD routes included)
-- Cart (protected): `GET /cart`, `POST /cart`, `DELETE /cart/:id`
-- Orders (protected): `GET /orders`, `GET /orders/:id`
-- Checkout (protected): `POST /checkout`
+4. **Start the server** (in development mode):
 
-Example: get a token and call a protected route
+   ```bash
+   npm run dev
+   ```
 
-```bash
-# register
-curl -X POST http://localhost:3000/auth/register -H "Content-Type: application/json" -d '{"email":"me@example.com","password":"pw"}'
+   The server will listen on the port you set in `.env` (default 3000).
 
-# login
-curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"me@example.com","password":"pw"}'
-# response includes "token": "<JWT>"
+## Available API routes
 
-# call protected route
-curl -H "Authorization: Bearer <TOKEN>" http://localhost:3000/cart
-```
+- `GET /` — simple health check
+- `GET /api-docs` — interactive API documentation (Swagger)
 
+### Auth
+- `POST /auth/register` — create a new user
+- `POST /auth/login` — log in, returns a JSON Web Token (JWT)
+
+### Products
+- `GET /products` — list products
+- Other product routes (create, update, delete) are also available.
+
+### Cart (requires login)
+- `GET /cart` — view your cart
+- `POST /cart` — add an item
+- `DELETE /cart/:id` — remove an item
+
+### Orders (requires login)
+- `GET /orders` — list your orders
+- `GET /orders/:id` — view a specific order
+
+### Checkout (requires login)
+- `POST /checkout` — finalize an order
+
+## Example usage
+
+1. **Register a user**
+
+   ```bash
+   curl -X POST http://localhost:3000/auth/register \
+     -H "Content-Type: application/json" \
+     -d '{"email":"me@example.com","password":"pw"}'
+   ```
+
+2. **Log in to get a token**
+
+   ```bash
+   curl -X POST http://localhost:3000/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{"email":"me@example.com","password":"pw"}'
+   ```
+
+   The response will include a field called `token`.
+
+3. **Use the token to access a protected route**
+
+   ```bash
+   curl -H "Authorization: Bearer <TOKEN>" http://localhost:3000/cart
+   ```
+
+   Replace `<TOKEN>` with the JWT from the login step.
+
+---
+
+Feel free to read the code to see how everything works or modify it for your own project!
